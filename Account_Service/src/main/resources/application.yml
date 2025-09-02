@@ -1,0 +1,12 @@
+    
+spring:
+  config:
+    import: optional:configserver:http://localhost:4000
+  application:
+    name: account-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'    

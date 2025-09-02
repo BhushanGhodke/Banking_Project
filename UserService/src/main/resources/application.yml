@@ -1,0 +1,13 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:4000
+  application:
+    name: user-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'   
+
+         
