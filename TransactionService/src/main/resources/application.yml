@@ -2,17 +2,15 @@ spring:
   config:
     import: optional:configserver:http://localhost:4000
   application:
-    name: user-service
+    name: transaction-service
 
   boot:
     admin:
       client:
-        url: http://localhost:4142   
+        url: http://localhost:4142
 
 management:
   endpoints:
     web:
       exposure:
         include: '*'   
-
-         

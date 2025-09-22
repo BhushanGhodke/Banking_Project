@@ -1,12 +1,19 @@
-package com.user.service.binding;
+package com.account.service.entity;
 
 import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-public class UserBinding {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-	private Integer userId;
+
+public class User {
+
+	private Integer  userId;
     private String username;
     private String password;  // encrypted
     private String email;
@@ -15,18 +22,8 @@ public class UserBinding {
     private String address;
     private String status; // ACTIVE, INACTIVE, BLOCKED
    
-    private String roleName;
-    
     @CreationTimestamp
     private LocalDate createdAt;
-    
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
 
 	public String getUsername() {
 		return username;
@@ -92,13 +89,6 @@ public class UserBinding {
 		this.createdAt = createdAt;
 	}
 
-	public String getRoleName() {
-		return roleName;
-	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
-	
+    
 }

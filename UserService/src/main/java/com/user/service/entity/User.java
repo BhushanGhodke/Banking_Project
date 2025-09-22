@@ -16,7 +16,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer  userId;
     private String username;
     private String password;  // encrypted
     private String email;
@@ -25,16 +25,10 @@ public class User {
     private String address;
     private String status; // ACTIVE, INACTIVE, BLOCKED
    
+    private String roleName;
+    
     @CreationTimestamp
     private LocalDate createdAt;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;
@@ -92,12 +86,30 @@ public class User {
 		this.status = status;
 	}
 
+	
+	
 	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 

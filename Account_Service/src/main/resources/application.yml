@@ -5,6 +5,11 @@ spring:
   application:
     name: account-service
 
+  boot:
+    admin:
+      client:
+        url: http://localhost:4142
+
 management:
   endpoints:
     web:

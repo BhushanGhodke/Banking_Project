@@ -8,20 +8,29 @@ import org.springframework.stereotype.Service;
 
 import com.user.service.binding.LoginRequest;
 import com.user.service.binding.UserBinding;
+import com.user.service.entity.LoginInfo;
+import com.user.service.entity.Role;
 import com.user.service.entity.User;
 import com.user.service.exception.UserAlredyExists;
 import com.user.service.exception.UserNotFoundException;
+import com.user.service.repo.LoginInfoRepository;
+import com.user.service.repo.RoleRepository;
 import com.user.service.repo.UserRepository;
 import com.user.service.util.APiResponse;
-
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private LoginInfoRepository loginInfoRepository;
 
+	
 	@Override
 	public APiResponse<User> addUser(UserBinding userBinding) {
 
@@ -30,6 +39,11 @@ public class UserServiceImpl implements UserService {
 
 		if (userDetail.isEmpty()) {
 
+			Role role= new Role();
+			role.setRoleName(userBinding.getRoleName());
+			role.setUserId(userBinding.getUserId());
+			roleRepository.save(role);
+			
 			User user = new User();
 			BeanUtils.copyProperties(userBinding, user);
 			User save = userRepository.save(user);
@@ -56,6 +70,9 @@ public class UserServiceImpl implements UserService {
 				response.setData(userDetails.get());
 				response.setMsg("Login Success");
 				response.setErrorCode(200);
+				LoginInfo loginInfo= new LoginInfo();
+				loginInfo.setUserId(userDetails.get().getUserId());
+				loginInfoRepository.save(loginInfo);
 				return response;
 			} else {
 
@@ -77,7 +94,6 @@ public class UserServiceImpl implements UserService {
 
 		APiResponse<User> response = new APiResponse<>();
 		Optional<User> userById = userRepository.findById(id);
-
 		if (userById.isPresent()) {
 			response.setData(userById.get());
 			response.setErrorCode(200);
@@ -98,7 +114,8 @@ public class UserServiceImpl implements UserService {
 		if (userInfo.isPresent()) {
 
 			User user = new User();
-			BeanUtils.copyProperties(userInfo.get(), user);
+		
+			BeanUtils.copyProperties(userBinding, user);
 			User save = userRepository.save(user);
 			response.setData(save);
 			response.setErrorCode(200);
